@@ -27,7 +27,7 @@ import setuptools
 from setuptools.command import build_ext
 
 logging.basicConfig(format='%(levelname)s:%(funcName)s:%(message)s',
-                    stream=sys.stdout, level=logging.INFO)
+                    stream=sys.stdout, level=logging.DEBUG)
 log = logging.getLogger('setup')
 
 REQUIRED_SWIG_VERSION = '2.0.4'
@@ -49,6 +49,7 @@ def _get_additional_includes():
                            stderr=subprocess.PIPE)
     _, err = pid.communicate()
     err = [line.lstrip() for line in err.split('\n') if line and line[0] == ' ']
+    log.debug('err:\n%s', str(err))
     return err
 
 
