@@ -73,7 +73,7 @@ def rand_file_name():
        is set, $HOME/.rnd otherwise. If $HOME is not set either,
        an error occurs.
     """
-    return m2.rand_file_name()  # pylint: disable=no-member
+    return util.py3str(m2.rand_file_name())  # pylint: disable=no-member
 
 
 def load_file(filename, max_bytes):
