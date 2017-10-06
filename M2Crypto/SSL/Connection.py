@@ -13,7 +13,7 @@ Copyright 2008 Heikki Toivonen. All rights reserved.
 import logging
 import socket
 
-from M2Crypto import BIO, X509, m2, six, util  # noqa
+from M2Crypto import BIO, Err, X509, m2, six, util  # noqa
 from M2Crypto.SSL import Checker, Context, timeout  # noqa
 from M2Crypto.SSL import SSLError
 from M2Crypto.SSL.Cipher import Cipher, Cipher_Stack
@@ -599,7 +599,7 @@ class Connection:
         # type: (bytes) -> int
         ret = m2.ssl_set_session_id_context(self.ssl, id)
         if not ret:
-            raise SSLError(m2.err_reason_error_string(m2.err_get_error()))
+            raise SSLError(Err.get_error_message())
 
     def get_session(self):
         # type: () -> Session
