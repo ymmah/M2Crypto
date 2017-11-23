@@ -207,6 +207,18 @@ m2_PyString_AsStringAndSizeInt(PyObject *obj, char **s, int *len)
     return 0;
 }
 
+/* Works as PyFile_Name, but always returns a new object. */
+PyObject *m2_PyFile_Name(PyObject *pyfile) {
+    PyObject *out = NULL;
+#if PY_MAJOR_VERSION >= 3
+   out = PyObject_GetAttrString(pyfile, "name");
+#else
+   out = PyFile_Name(pyfile);
+   Py_XINCREF(out);
+#endif
+    return out;
+}
+
 #define m2_PyErr_Msg(type) m2_PyErr_Msg_Caller(type, __func__)
 
 static void m2_PyErr_Msg_Caller(PyObject *err_type, const char* caller) {
